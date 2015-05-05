@@ -23,10 +23,12 @@ FacebookSession::setDefaultApplication('773271782779972','50adb74b6e03c1ff18a95f
 
 class UsersController extends AppController {
 
+    public $helpers = array('Html');
+
     public function login($social = null)
     {
 
-        $redirect_url_fb = Router::url(array('controller' => 'users', 'action' => 'add', 'fb'), true);
+        $redirect_url_fb = Router::url(array('controller' => 'users', 'action' => 'login', 'fb'), true);
 
         if (empty($social)) {
 
@@ -49,6 +51,9 @@ class UsersController extends AppController {
 
     public function profile($id){
         $user_profile = $this->User->getUserProfile($id);
+        if ($this->request->is('ajax')) {
+            $this->layout = 'ajax';
+        }
         $this->set('user_profile', $user_profile);
     }
 
@@ -69,7 +74,7 @@ class UsersController extends AppController {
                 $response1 = $request1->execute();
                 $result = $response1->getGraphObject()->asArray();
                 $result['picture'] = $result['picture']->data->url;
-                $result['gender'] = $gender[$result['gender']];
+                $result['gender_id'] = $gender[$result['gender']];
                 return $result;
             } catch(FacebookRequestException $e) {
                 return $e->getMessage();

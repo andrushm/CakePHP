@@ -33,8 +33,10 @@ class User extends AppModel {
 
     public $useTable = 'fb_users';
 
+    public $belongsTo = array('Gender');
+
     public function saveProfile($user_profile){
-        $validationFields = array('id', 'first_name', 'last_name', 'email', 'gender', 'picture');
+        $validationFields = array('id', 'first_name', 'last_name', 'email', 'gender_id', 'picture');
         $res = $this->save($user_profile, true, $validationFields);
 
     }

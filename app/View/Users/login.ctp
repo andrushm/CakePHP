@@ -5,7 +5,7 @@
                 <span class="btn-link btn-auth-fb sprite-side">
                     <?php
                     if (isset($fb_url)) {
-                        echo $this->Html->link(__('fe_register_import_Facebook'), $fb_url);
+                        echo $this->Html->link('login Facebook', $fb_url);
                     }
                     ?>
                 </span>
